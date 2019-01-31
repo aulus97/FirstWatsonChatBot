@@ -1,0 +1,728 @@
+{
+  "name": "First Test",
+  "intents": [
+    {
+      "intent": "negations",
+      "examples": [
+        {
+          "text": "No"
+        },
+        {
+          "text": "Quit"
+        }
+      ]
+    },
+    {
+      "intent": "assertives",
+      "examples": [
+        {
+          "text": "Yes"
+        },
+        {
+          "text": "Sure"
+        }
+      ]
+    },
+    {
+      "intent": "Hi",
+      "examples": [
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Hello"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Price",
+      "examples": [
+        {
+          "text": "How much is it?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Order",
+      "examples": [
+        {
+          "text": "Order a trip to"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "none",
+      "examples": []
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sys-date",
+      "values": []
+    },
+    {
+      "entity": "Cidade",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Sao Paulo",
+          "synonyms": [
+            "SP"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Belo Horizonte",
+          "synonyms": [
+            "BH"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Confirm",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Confirm order",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Yes",
+          "synonyms": [
+            "Sure"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "language": "en",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-09-20"
+    }
+  },
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Sorry, i didn't understand"
+          ]
+        }
+      },
+      "parent": "slot_19_1548973645795",
+      "event_name": "nomatch",
+      "dialog_node": "handler_25_1548973872423",
+      "previous_sibling": "handler_24_1548973847999"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please, this information is important to me"
+          ]
+        }
+      },
+      "parent": "slot_19_1548973645795",
+      "conditions": "#negations",
+      "event_name": "nomatch",
+      "dialog_node": "handler_24_1548973847999",
+      "previous_sibling": "handler_23_1548973692204"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Ok, next  type your destination"
+          ]
+        }
+      },
+      "parent": "slot_19_1548973645795",
+      "conditions": "#assertives",
+      "event_name": "nomatch",
+      "dialog_node": "handler_23_1548973692204",
+      "previous_sibling": "handler_22_1548973692204"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_19_1548973645795",
+      "context": {
+        "CidadeDestino": "@Cidade"
+      },
+      "metadata": {},
+      "conditions": "@Cidade",
+      "event_name": "input",
+      "dialog_node": "handler_20_1548973645795",
+      "previous_sibling": "handler_21_1548973645795"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "I understood your destination as being $CidadeDestino"
+          ]
+        }
+      },
+      "parent": "slot_19_1548973645795",
+      "event_name": "filled",
+      "dialog_node": "handler_22_1548973692204",
+      "previous_sibling": "handler_20_1548973645795"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Please, type your destination"
+      },
+      "parent": "slot_19_1548973645795",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_21_1548973645795"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Right, then set your departure date"
+          ]
+        }
+      },
+      "parent": "slot_29_1548974057102",
+      "metadata": {},
+      "conditions": "#assertives",
+      "event_name": "nomatch",
+      "dialog_node": "handler_33_1548974065340",
+      "previous_sibling": "handler_32_1548974065340"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_29_1548974057102",
+      "context": {
+        "Startdate": "@sys-date"
+      },
+      "metadata": {},
+      "conditions": "@sys-date",
+      "event_name": "input",
+      "dialog_node": "handler_30_1548974057103",
+      "previous_sibling": "handler_31_1548974057103"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please, i need the departure date to continue"
+          ]
+        }
+      },
+      "parent": "slot_29_1548974057102",
+      "metadata": {},
+      "conditions": "#negations",
+      "event_name": "nomatch",
+      "dialog_node": "handler_34_1548974247743",
+      "previous_sibling": "handler_33_1548974065340"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "I recognized your departure date as being $Startdate"
+          ]
+        }
+      },
+      "parent": "slot_29_1548974057102",
+      "metadata": {},
+      "event_name": "filled",
+      "dialog_node": "handler_32_1548974065340",
+      "previous_sibling": "handler_30_1548974057103"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Sorry, i didn't understand"
+          ]
+        }
+      },
+      "parent": "slot_29_1548974057102",
+      "metadata": {},
+      "event_name": "nomatch",
+      "dialog_node": "handler_35_1548974271013",
+      "previous_sibling": "handler_34_1548974247743"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Please, set your departure date"
+      },
+      "parent": "slot_29_1548974057102",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_31_1548974057103"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Now it's time to set the dates"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "Anything else",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_27_1548973997587"
+      },
+      "dialog_node": "node_26_1548973933989"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_27_1548973997587",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "variable": "$Enddate",
+      "dialog_node": "slot_36_1548974301981",
+      "previous_sibling": "slot_29_1548974057102"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_27_1548973997587",
+      "metadata": {},
+      "dialog_node": "node_28_1548974057085",
+      "previous_sibling": "slot_36_1548974301981"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_27_1548973997587",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "variable": "$Startdate",
+      "dialog_node": "slot_29_1548974057102"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Sorry, i didn't understand"
+          ]
+        }
+      },
+      "parent": "slot_36_1548974301981",
+      "event_name": "nomatch",
+      "dialog_node": "handler_55_1548974456468",
+      "previous_sibling": "handler_54_1548974414162"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please, i need the arrival date to continue"
+          ]
+        }
+      },
+      "parent": "slot_36_1548974301981",
+      "conditions": "#negations",
+      "event_name": "nomatch",
+      "dialog_node": "handler_54_1548974414162",
+      "previous_sibling": "handler_53_1548974396550"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_36_1548974301981",
+      "context": {
+        "Enddate": "@sys-date"
+      },
+      "metadata": {},
+      "conditions": "@sys-date",
+      "event_name": "input",
+      "dialog_node": "handler_37_1548974301981",
+      "previous_sibling": "handler_38_1548974301981"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "I recognized your arrival date as being $Enddate"
+          ]
+        }
+      },
+      "parent": "slot_36_1548974301981",
+      "metadata": {},
+      "event_name": "filled",
+      "dialog_node": "handler_47_1548974373110",
+      "previous_sibling": "handler_37_1548974301981"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Right, then set your departure date"
+          ]
+        }
+      },
+      "parent": "slot_36_1548974301981",
+      "metadata": {},
+      "conditions": "#assertives",
+      "event_name": "nomatch",
+      "dialog_node": "handler_53_1548974396550",
+      "previous_sibling": "handler_47_1548974373110"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Please, set up arrival date"
+      },
+      "parent": "slot_36_1548974301981",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_38_1548974301981"
+    },
+    {
+      "type": "frame",
+      "output": {},
+      "parent": "node_26_1548973933989",
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "dialog_node": "node_27_1548973997587",
+      "digress_out": "allow_all",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Right, I understood."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "Ready to confirm?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1548972085212",
+      "metadata": {},
+      "dialog_node": "node_56_1548975143684"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1548972629575",
+      "metadata": {},
+      "dialog_node": "node_3_1548972795447",
+      "previous_sibling": "slot_19_1548973645795"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_2_1548972629575",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "variable": "$CidadeDestino",
+      "dialog_node": "slot_19_1548973645795",
+      "previous_sibling": "slot_4_1548972795472"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_2_1548972629575",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "variable": "$CidadeOrigem",
+      "dialog_node": "slot_4_1548972795472"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Right, your departure place is recorded!"
+          ]
+        }
+      },
+      "parent": "slot_4_1548972795472",
+      "conditions": "#assertives",
+      "event_name": "nomatch",
+      "dialog_node": "handler_16_1548973386645",
+      "previous_sibling": "handler_15_1548973386645"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_4_1548972795472",
+      "context": {
+        "CidadeOrigem": "@Cidade"
+      },
+      "metadata": {},
+      "conditions": "@Cidade",
+      "event_name": "input",
+      "dialog_node": "handler_5_1548972795472",
+      "previous_sibling": "handler_6_1548972795472"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Sorry, I didn't understand your answer"
+          ]
+        }
+      },
+      "parent": "slot_4_1548972795472",
+      "event_name": "nomatch",
+      "dialog_node": "handler_18_1548973521837",
+      "previous_sibling": "handler_17_1548973493814"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please, this information is important to me"
+          ]
+        }
+      },
+      "parent": "slot_4_1548972795472",
+      "conditions": "#negations",
+      "event_name": "nomatch",
+      "dialog_node": "handler_17_1548973493814",
+      "previous_sibling": "handler_16_1548973386645"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "I understood the departure place as $CidadeOrigem"
+          ]
+        }
+      },
+      "parent": "slot_4_1548972795472",
+      "event_name": "filled",
+      "dialog_node": "handler_15_1548973386645",
+      "previous_sibling": "handler_5_1548972795472"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Please, type your departure place"
+      },
+      "parent": "slot_4_1548972795472",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_6_1548972795472"
+    },
+    {
+      "type": "standard",
+      "title": "Ordering",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Ok, I saved your request"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_26_1548973933989"
+      },
+      "dialog_node": "Anything else",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I'll check the prices..."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "Please, choose your class pref"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Class Type",
+            "options": [
+              {
+                "label": "First Class",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "Normal Class",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "#Price",
+      "dialog_node": "node_1_1548972085212",
+      "previous_sibling": "Anything else"
+    },
+    {
+      "type": "frame",
+      "output": {},
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "Anything else"
+      },
+      "conditions": "#Order",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_2_1548972629575",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_1_1548972085212",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good evening!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "#Hi",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "workspace_id": "d0f3845e-c917-496f-be2f-ce45f0cc5bbf",
+  "counterexamples": [],
+  "system_settings": {
+    "tooling": {
+      "store_generic_responses": true
+    }
+  },
+  "learning_opt_out": false,
+  "status": "Available"
+}
